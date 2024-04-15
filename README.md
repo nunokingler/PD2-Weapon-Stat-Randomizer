@@ -13,15 +13,11 @@ Its not meant to be a public release and we treat it as such. There is no suppor
 - Payday 2 installed
 - Java runtime environment installed
 
-### Installation
+### Installation & Usage
 
 1. Download the latest release of the PD2 Weapon Stat Randomizer from the [releases](https://github.com/nunokingler/PD2-Weapon-Stat-Randomizer/releases) section.
+2. Check the instructions there
 
-## Usage
-
-## Contributing
-
-Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
 1. Fork the Project
 2. Create your Feature Branch (`git checkout -b feature/YourAwsomeContribution`)
