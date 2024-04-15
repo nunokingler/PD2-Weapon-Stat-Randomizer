@@ -34,4 +34,4 @@ Contributions are what make the open-source community such an amazing place to l
 
 ## Contact
 
-Nuno Cavaco - [@My_linkedin]([https://www.linkedin.com/in/npcavaco/]) - n.p.cavaco@gmail.com
+Nuno Cavaco - [My linkedIn](https://www.linkedin.com/in/npcavaco/) - n.p.cavaco@gmail.com
