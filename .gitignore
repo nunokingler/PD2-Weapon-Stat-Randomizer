@@ -1,0 +1,11 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/PD2-Weapon-Stat-Randomizer/v17
+/.vs/PD2-Weapon-Stat-Randomizer/FileContentIndex
+/PD2-Weap.7155f2a2/x64/Debug
+/x64/Debug/PD2-Weapon-Stat-Randomizer.exe
+/x64/Debug/PD2-Weapon-Stat-Randomizer.pdb
+/PD2-Weapon-Stat-Randomizer.vcxproj.user
+/x64/Debug/originalStats.csv
