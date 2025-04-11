@@ -1,5 +1,5 @@
 #pragma once
-#include "Weapon.hpp"
+#include "../WeaponCore/Weapon.hpp"
 class Balancer {
 public:
 

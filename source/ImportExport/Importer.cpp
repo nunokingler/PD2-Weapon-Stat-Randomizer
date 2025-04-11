@@ -3,10 +3,11 @@
 #include <string>
 #include <sstream>
 #include <fstream>
-#include "Weapon.hpp"
+#include "../WeaponCore/Weapon.hpp"
 #include "Importer.hpp"
 #include <iostream>
-#include "WeaponBuilder.hpp"
+#include "../WeaponCore/WeaponBuilder.hpp"
+using namespace std;
 
 namespace {
     std::vector<std::string> splitLine(const std::string& line) {
@@ -22,33 +23,32 @@ namespace {
         return tokens;
     }
 
-    Weapon createWeaponFromLine(const std::vector<std::string> tokens) {
+    Weapon createWeaponFromLine(const std::vector<std::string> tokens) { //Todo check how the game handles stability of akimbo weapons ( does it store them already with the stability penalty) 
         WeaponBuilder weaponBuilder;
-        //weaponBuilder.SetInternalName(tokens[0]);
         std::string internalName = tokens[0];
-        auto type = static_cast<WeaponType>(std::stoi(tokens[1]));
-        auto category = static_cast<WeaponClass> (std::stoi(tokens[2]));
-        std::string inGameName = tokens[3];
-        int damage = std::stoi(tokens[4]);
+        std::string inGameName = tokens[1];
+        auto type = static_cast<WeaponType>(std::stoi(tokens[2]));
+        int damage = std::stoi(tokens[3]);
+        float rateOfFire = 1.0f / std::stoi(tokens[4]); // same logic as before
         int concealment = std::stoi(tokens[5]);
-        float rateOfFire = 1.0/std::stoi(tokens[6]);
-        int accuracy = std::stoi(tokens[7]);
-        int stability = std::stoi(tokens[8]);
-        float ammoLow = std::stof(tokens[9]);
-        float ammoHigh = std::stof(tokens[10]);
-        int magSize = std::stoi(tokens[11]);
-        int ammoTotal = std::stoi(tokens[12]);
+        int accuracy = std::stoi(tokens[6]);
+        int stability = std::stoi(tokens[7]);
+        float reloadSpeed = std::stof(tokens[8]);
+        int magSize = std::stoi(tokens[9]);
+        int ammoTotal = std::stoi(tokens[10]);
+        float ammoLow = std::stof(tokens[11]);
+        float ammoHigh = std::stof(tokens[12]);
 
         // Construct a Weapon object
         return Weapon(
             internalName,
             type,
-            category,
+            1,
             inGameName,
             damage,
             concealment,
             rateOfFire,
-            0.0,
+            reloadSpeed,
             accuracy,
             stability,
             ammoLow,
@@ -61,11 +61,13 @@ namespace {
 
 std::vector<Weapon> WeaponImporter::importFromCSV() {
     std::vector<Weapon> weapons;
+    weapons.reserve(213);
 
-    std::ifstream inFile("originalStats.csv");//TODO define constant
+    auto filename = "scraped_weapon_data.csv";//TODO define constant
+
+    std::ifstream inFile(filename);
     if (!inFile.is_open()) {
-        std::cout << "Error: Unable to open stats file"<< std::endl;
-        return weapons; // Return an empty vector on error
+        throw std::runtime_error("Failed to open file: \"" + std::string(filename)+ "\"");                      //No data,no program
     }
 
     std::string line;
@@ -75,9 +77,7 @@ std::vector<Weapon> WeaponImporter::importFromCSV() {
             continue;
 
         auto tokens = splitLine(line);
-        // Verify we have exactly 13 fields:
-        // internalName, type, category, inGameName, damage, concealment, rateOfFire, accuracy,
-        // stability, ammoLow, ammoHigh, magSize, ammoTotal
+
         if (tokens.size() < 13) {
             std::cout << "Warning: Skipping malformed line: " << line << std::endl;
             continue;

@@ -2,7 +2,7 @@
 
 #include <string>
 #include <vector>
-#include "Weapon.hpp"  
+#include "../WeaponCore/Weapon.hpp"  
 
 class WeaponImporter {
 public:
