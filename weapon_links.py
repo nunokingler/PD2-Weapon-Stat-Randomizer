@@ -19,14 +19,15 @@ def get_weapon_links():
     tables = soup.find_all("table", class_=lambda c: c and "wikitable" in c and "sortable" in c)
 
     grouped = []  # List of (heading, [(name, url), ...])
-
+    tableNumber = 0;
     for table in tables:
         heading = table.find_previous(["h2", "h3"])
         heading_text = heading.get_text(strip=True) if heading else "Unknown"
 
         if any(keyword in heading_text.lower() for keyword in SKIP_KEYWORDS):
             continue
-
+        heading_text += f" {tableNumber}"
+        tableNumber+=1
         weapons = []
         rows = table.find_all("tr")[1:]
         for row in rows:
@@ -41,7 +42,7 @@ def get_weapon_links():
             weapons.append((name, full_url))
 
         if weapons:
-            grouped.append((heading_text, weapons))
+            grouped.append((tableNumber, weapons))
 
     return grouped
 

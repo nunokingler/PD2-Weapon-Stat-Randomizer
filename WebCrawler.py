@@ -12,29 +12,8 @@ headers = {
 # Quick map of headings to example WeaponType and WeaponClass values
 # You’ll want to replace these with your actual enum mapping later
 def infer_type_and_class(heading):
+    return heading
     heading = heading.lower()
-    if "Assault Rifles[]" in heading:
-        return 0, 1
-    elif "Shotguns[]" in heading:
-        return 1, 1
-    elif "Light Machine Guns[]" in heading:
-        return 2, 1
-    elif "Sniper Rifles[]" in heading:
-        return 3, 1
-    elif "Akimbo Pistols[]" in heading:
-        return 4, 1
-    elif "Akimbo SMGs[]" in heading:
-        return 5, 1
-    elif "Akimbo Shotguns[]" in heading:
-        return 6, 1
-    elif "Specials[]" in heading:
-        return 7, 1
-    elif "Pistols[]" in heading:
-        return 8, 1
-    elif "Submachine Guns[]" in heading:
-        return 9, 1
-    else:
-        return 99, 99  # Unknown fallback
         
 def parse_names_from_stat_table(soup, fallback_name):
     internalName = ""
@@ -95,7 +74,7 @@ def parse_stat_block(soup):
             value = cells[1].get_text(strip=True).replace(",", "")
 
             try:
-                if label == "damage":
+                if label == "damage" and stats["damage"] == 0:
                     stats["damage"] = int(re.search(r'\d+', value).group())
                 elif label == "concealment":
                     stats["concealment"] = int(re.search(r'\d+', value).group())
@@ -138,7 +117,7 @@ with open("scraped_weapon_data.csv", mode="w", newline="", encoding="utf-8") as 
 all_weapons = []
 
 for heading, weapons in get_weapon_links():
-    wType, wClass = infer_type_and_class(heading)
+    wType = heading
 
     for name, url in weapons:
         try:
