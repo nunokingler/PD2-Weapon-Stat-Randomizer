@@ -1,4 +1,3 @@
-#pragma once
 #include <fstream>
 #include <iomanip>
 #include <cmath>    // for std::round

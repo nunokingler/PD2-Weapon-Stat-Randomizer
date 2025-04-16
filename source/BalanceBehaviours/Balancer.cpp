@@ -1,4 +1,3 @@
-#pragma once
 #include "Balancer.hpp"
 
 float Balancer::CalculateDps(const Weapon& w) {

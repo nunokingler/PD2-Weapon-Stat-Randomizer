@@ -1,4 +1,3 @@
-#pragma once
 #include <vector>
 #include <string>
 #include <sstream>
@@ -25,11 +24,11 @@ namespace {
 
     Weapon createWeaponFromLine(const std::vector<std::string> tokens) { //Todo check how the game handles stability of akimbo weapons ( does it store them already with the stability penalty) 
         WeaponBuilder weaponBuilder;
-        std::string internalName = tokens[0];
+        std::string internalName = tokens[0];//todo add try catch
         std::string inGameName = tokens[1];
         auto type = static_cast<WeaponType>(std::stoi(tokens[2]));
         int damage = std::stoi(tokens[3]);
-        float rateOfFire = 1.0f / std::stoi(tokens[4]); // same logic as before
+        float rateOfFire = 60.0f / std::stoi(tokens[4]); // same logic as before
         int concealment = std::stoi(tokens[5]);
         int accuracy = std::stoi(tokens[6]);
         int stability = std::stoi(tokens[7]);
