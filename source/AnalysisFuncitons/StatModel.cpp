@@ -42,57 +42,57 @@ namespace {
 
         return PowerLaw{ static_cast<float>(a), static_cast<float>(b) };
     }
-}// Extracted flush function
-void StatModel::flushCurrentType(
-    WeaponType type,
-    const std::vector<float>& x,
-    const std::vector<float>& y,
-    Stat stat)
+}
+
+
+StatModel::StatModel() {
+    currentType = WeaponType::AssaultRifle;
+    xDamage.reserve(40);
+    for (auto& [stat, vec] : yPerStat)
+    {
+        vec.reserve(40);
+    }
+}
+
+void StatModel::updateWithWeapon(const Weapon& w)
+{    
+    currentType = w.type;
+    float damage = static_cast<float>(w.damage);
+    if (damage <= 0) return; // skip zero or negative damage
+    xDamage.push_back(damage);
+
+    for (const auto& [stat, extract, canBeModelDriven] : StatInfo::statExtractors) {
+        if (!canBeModelDriven) continue;
+        float val = extract(w);
+        if (val > 0.0f) {
+            yPerStat[stat].push_back(val);
+        }
+    }
+}
+void StatModel::processCurrentType()
 {
-    if (!x.empty() && x.size() == y.size()) {
+    if (xDamage.empty())
+        return;// Flush everything for the old type
+    for (auto& [stat, yVals] : yPerStat) {
+        if (xDamage.size() != yVals.size())
+            continue;
         try {
-            PowerLaw model = powerLawFit(x, y);
-            models[type][stat] = model;
+            PowerLaw model = powerLawFit(xDamage, yVals);
+            models[currentType][stat] = model;
         }
         catch (const std::exception& e) {
-            std::cout << "Flush error for type " << type << ": " << e.what() << std::endl;
+            std::cout << "Flush error for type " << currentType << ": With stat " << static_cast<int>(stat) << e.what() << std::endl;
         }
+        
     }
+    // Reset for the new type
+    xDamage.clear();
+    yPerStat.clear();
 }
-// Group by WeaponType and fit stats
-void StatModel::analyze(const std::vector<Weapon>& weapons) {
-    if (weapons.empty()) return;
 
-    WeaponType currentType = weapons.front().type;
-    std::vector<float> xDamage;
-    std::unordered_map<Stat, std::vector<float>> yPerStat;
-
-    xDamage.reserve(30);
-    for (const auto& weapon : weapons) {            // For each group and each stat, fit power law
-        if (weapon.type != currentType) {           // we have changed types time to run the model
-            for (const auto& [stat, y] : yPerStat) {
-                flushCurrentType(currentType, xDamage, y, stat);
-            }
-            currentType = weapon.type;
-            xDamage.clear();
-            yPerStat.clear();
-        }
-
-        float damage = static_cast<float>(weapon.damage);
-        if (damage <= 0) continue;
-
-        xDamage.push_back(damage);
-        for (const auto& [stat, extract] : statExtractors) {
-            if (!isModelDriven(stat)) continue;
-
-            float value = extract(weapon);
-            if (value > 0) {
-                yPerStat[stat].push_back(value);
-            }
-        }
-    }                
-    for (const auto& [stat, y] : yPerStat) {
-        flushCurrentType(currentType, xDamage, y, stat);
-    }
+void StatModel::finalize()
+{
+    processCurrentType();
 }
+
 

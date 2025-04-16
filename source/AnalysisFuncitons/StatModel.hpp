@@ -10,8 +10,17 @@ struct PowerLaw {
 
 class StatModel {
 public:
-    void analyze(const std::vector<Weapon>& weapons);
+    StatModel();
+    // Process each weapon once as part of an ongoing pass:
+    void updateWithWeapon(const Weapon& w);
+    void processCurrentType();
+    // Once all weapons have been processed, finalize the fitting:
+    void finalize();
 private:
+    //parameters for calculation
+    WeaponType currentType;
+    std::vector<float> xDamage;
+    std::unordered_map<Stat, std::vector<float>> yPerStat;
+    //output
     std::unordered_map<WeaponType, std::unordered_map<Stat, PowerLaw>> models;
-    void flushCurrentType(WeaponType type,const std::vector<float>& xPerStat,const std::vector<float>& yPerStat, Stat stat);
 };
