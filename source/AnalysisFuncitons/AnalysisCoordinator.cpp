@@ -16,6 +16,7 @@ void AnalysisCoordinator::Analyse(std::vector<Weapon>& weapons) {
 	for (const auto& w : weapons){
 		if (w.type != currentType) {
 			powerModel.processCurrentType();
+			currentType = w.type;
 		}
 		powerModel.updateWithWeapon(w);
 	}
