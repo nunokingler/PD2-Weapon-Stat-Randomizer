@@ -1,12 +1,11 @@
 #pragma once
-#include "StatModel.hpp"
-#include "StatModel.hpp"
+#include "PowerModel.hpp"
 
 
 class AnalysisCoordinator {
 public:
-	AnalysisCoordinator(StatModel& model);
+	AnalysisCoordinator(PowerModel& model);
 	void Analyse(std::vector<Weapon>& weapons);
 private:
-	StatModel& powerModel;
+	PowerModel& powerModel;
 };

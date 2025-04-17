@@ -2,7 +2,7 @@
 #include <cmath>
 #include <iostream>
 #include <utility>
-#include "StatModel.hpp"
+#include "PowerModel.hpp"
 #include <map>
 #include "../WeaponCore/Weapon.hpp"
 #include "../WeaponCore/WeaponConstants.hpp"
@@ -45,7 +45,7 @@ namespace {
 }
 
 
-StatModel::StatModel() {
+PowerModel::PowerModel() {
     currentType = WeaponType::AssaultRifle;
     xDamage.reserve(40);
     for (auto& [stat, vec] : yPerStat)
@@ -54,7 +54,7 @@ StatModel::StatModel() {
     }
 }
 
-void StatModel::updateWithWeapon(const Weapon& w)
+void PowerModel::updateWithWeapon(const Weapon& w) 
 {    
     currentType = w.type;
     float damage = static_cast<float>(w.damage);
@@ -69,7 +69,7 @@ void StatModel::updateWithWeapon(const Weapon& w)
         }
     }
 }
-void StatModel::processCurrentType()
+void PowerModel::processCurrentType()
 {
     if (xDamage.empty())
         return;// Flush everything for the old type
@@ -90,7 +90,7 @@ void StatModel::processCurrentType()
     yPerStat.clear();
 }
 
-void StatModel::finalize()
+void PowerModel::finalize()
 {
     processCurrentType();
 }
