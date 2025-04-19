@@ -43,3 +43,7 @@ If you break your install, your game, or your brain — that's on you.
 **Nuno Cavaco**  
 📫 [LinkedIn](https://www.linkedin.com/in/npcavaco/)  
 📧 n.p.cavaco@gmail.com
+
+# Analysis
+Weapon stat analysis can be found on the following link
+https://docs.google.com/spreadsheets/d/1lJzOLYHWkv-xYecr3cuwUKM6dalk2b0lY37n5tzzhlU/edit?usp=sharing
