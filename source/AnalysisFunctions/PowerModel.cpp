@@ -81,7 +81,8 @@ void PowerModel::processCurrentType()
             models[currentType][stat] = model;
         }
         catch (const std::exception& e) {
-            std::cout << "Flush error for type " << currentType << ": With stat " << static_cast<int>(stat) << e.what() << std::endl;
+            auto type = static_cast<int>(currentType);
+            std::cout << "Flush error for type " <<  type << ": With stat " << static_cast<int>(stat) << e.what() << std::endl;
         }
         
     }
@@ -94,5 +95,10 @@ void PowerModel::finalize()
 {
     processCurrentType();
 }
-
+const PowerLaw* PowerModel::tryGetModel(WeaponType t, Stat s) const {
+    auto itType = models.find(t);
+    if (itType == models.end()) return nullptr;
+    auto itStat = itType->second.find(s);
+    return (itStat == itType->second.end()) ? nullptr : &itStat->second;
+}
 

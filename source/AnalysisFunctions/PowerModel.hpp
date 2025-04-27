@@ -17,6 +17,7 @@ public:
     void processCurrentType() override;
     // Once all weapons have been processed, finalize the fitting:
     void finalize() override;
+    const PowerLaw* tryGetModel(WeaponType t, Stat s) const;
 private:
     //parameters for calculation
     WeaponType currentType;

@@ -4,7 +4,7 @@
 #include <vector>
 
 
-AnalysisCoordinator::AnalysisCoordinator(PowerModel& model) : powerModel{ model } {
+AnalysisCoordinator::AnalysisCoordinator(std::vector<std::shared_ptr<IModel>> models) : models{ models } {
 
 }
 
@@ -15,10 +15,19 @@ void AnalysisCoordinator::Analyse(std::vector<Weapon>& weapons) {
 	WeaponType currentType = weapons.front().type;
 	for (const auto& w : weapons){
 		if (w.type != currentType) {
-			powerModel.processCurrentType(); 
-			currentType = w.type;
+			for(auto& model:models)
+			{
+				model.get()->processCurrentType();
+				currentType = w.type;
+			}
 		}
-		powerModel.updateWithWeapon(w);
+		for (auto& model : models)
+		{
+			model->updateWithWeapon(w);
+		}
 	}
-	powerModel.finalize();
+	for (auto& model : models)
+	{
+		model->finalize();
+	}
 }

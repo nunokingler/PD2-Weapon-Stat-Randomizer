@@ -4,8 +4,8 @@
 
 class AnalysisCoordinator {
 public:
-	AnalysisCoordinator(PowerModel& model);
+	AnalysisCoordinator(std::vector<std::shared_ptr<IModel>> models);
 	void Analyse(std::vector<Weapon>& weapons);
 private:
-	PowerModel& powerModel;
+	std::vector<std::shared_ptr<IModel>> models;
 };

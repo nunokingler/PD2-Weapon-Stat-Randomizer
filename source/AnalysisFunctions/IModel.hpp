@@ -1,3 +1,4 @@
+#pragma once
 #include "../WeaponCore/Weapon.hpp"
 class IModel {
 public:
