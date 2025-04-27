@@ -26,7 +26,7 @@ namespace {
         WeaponBuilder weaponBuilder;
         std::string internalName = tokens[0];//todo add try catch
         std::string inGameName = tokens[1];
-        auto type = static_cast<WeaponType>(std::stoi(tokens[2]));
+        auto type = static_cast<WeaponType>(std::stoi(tokens[2])-1);
         int damage = std::stoi(tokens[3]);
         float rateOfFire = 60.0f / std::stoi(tokens[4]); // same logic as before
         int concealment = std::stoi(tokens[5]);
@@ -34,7 +34,7 @@ namespace {
         int stability = std::stoi(tokens[7]);
         float reloadSpeed = std::stof(tokens[8]);
         int magSize = std::stoi(tokens[9]);
-        int ammoTotal = std::stoi(tokens[10]);
+        int ammoMax = std::stoi(tokens[10]);
         float ammoLow = std::stof(tokens[11]);
         float ammoHigh = std::stof(tokens[12]);
 
@@ -53,7 +53,7 @@ namespace {
             ammoLow,
             ammoHigh,
             magSize,
-            ammoTotal
+            ammoMax
         );
     }
 }

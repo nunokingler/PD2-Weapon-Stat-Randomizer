@@ -43,5 +43,5 @@ private:
     float ammoLow = 0.0f;
     float ammoHigh = 0.0f;
     int magSize = 0;
-    int ammoTotal = 0;
+    int ammoMax = 0;
 };

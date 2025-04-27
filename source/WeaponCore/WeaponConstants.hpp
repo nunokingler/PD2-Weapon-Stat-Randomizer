@@ -1,19 +1,21 @@
 #include <cstdint>
 #pragma once
-enum WeaponType {
+enum class WeaponType {
 	AssaultRifle,
 	Shotgun,
-	LightMachineGun,
-	Sniper,
 	AkimboPistols,
-	AkimboSubMachineGun,
 	AkimboShotgun,
+	AkimboSubMachineGun,
+	Sniper,
+	LightMachineGun,
 	SawAndMisc,
 	Pistols,
 	SubMachineGuns,
-	SawAndMiscSecondary,
 	ShotgunsSecondary,
-	SniperSecondary
+	SniperSecondary,
+	SawAndMiscSecondary,
+
+	count
 };
 
 using WeaponClass = uint8_t;

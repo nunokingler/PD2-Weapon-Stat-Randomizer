@@ -5,7 +5,7 @@
 #include <vector>
 #include "../WeaponCore/Weapon.hpp"
 
-class Exporter {
+class WeaponExporter {
 public:
 	void ExportToLua(const std::vector<Weapon>& weapons);
 private:

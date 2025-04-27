@@ -5,7 +5,7 @@
 #include "../WeaponCore/Weapon.hpp"
 #include "Exporter.hpp"
 
-void Exporter::ExportToLua(const std::vector<Weapon>& weapons) {
+void WeaponExporter::ExportToLua(const std::vector<Weapon>& weapons) {
 	auto filename = "PD2-WeaponStats.lua";
 	std::ofstream file(filename);
 	
@@ -32,6 +32,6 @@ void Exporter::ExportToLua(const std::vector<Weapon>& weapons) {
 
         file << name << "AMMO_PICKUP = {" << w.ammoLow << ", " << w.ammoHigh << "}\n";
         file << name << "CLIP_AMMO_MAX = " << w.magSize << "\n";
-        file << name << "AMMO_MAX = " << w.ammoTotal << "\n\n";
+        file << name << "AMMO_MAX = " << w.ammoMax << "\n\n";
     }
 }

@@ -13,7 +13,7 @@ public:
         const std::string& internalName, WeaponType type, WeaponClass weaponClass,
         const std::string& ingameName, int damage, int concealment, float rof,
         float reloadSpeed, int accuracy, int stability, float ammoLow, float ammoHigh, 
-        int magSize, int ammoTotal);
+        int magSize, int ammoMax);
 
     Weapon(const Weapon&) = default;
     Weapon( Weapon&&) = default;
@@ -22,10 +22,6 @@ public:
     Weapon& operator= (Weapon&&) = default;
     
     std::string toString() const;
-
-    float getReloadspeed() const {
-        return reloadSpeed;
-    }
 
     std::string internalName;       //Name in .lua files    
     std::string ingameName;         //Name that shows up in game (differs from .lua files most of the time
@@ -40,7 +36,7 @@ public:
     float ammoLow;
     float ammoHigh;
     int magSize;
-    int ammoTotal;
+    int ammoMax;
 
 private:
 };

@@ -10,7 +10,7 @@ enum class Stat {
     Concealment,
     Accuracy,
     Stability,
-    AmmoTotal,
+    AmmoMax,
     MagSize,
     AmmoHigh,
     AmmoLow,
@@ -25,16 +25,16 @@ namespace StatInfo{
 
     // Static list of stat extractors
     inline const std::array<StatExtractor, 10> statExtractors{ {
-        { Stat::AmmoHigh,    [](const Weapon& w) { return w.ammoHigh; } ,true},
-        { Stat::AmmoLow,     [](const Weapon& w) { return w.ammoLow; } ,true},
+        { Stat::Damage,      [](const Weapon& w) { return static_cast<float>(w.damage); } ,false},
         { Stat::ReloadSpeed, [](const Weapon& w) { return w.reloadSpeed; } ,false},
         { Stat::ROF,         [](const Weapon& w) { return w.rof; } ,false},
-        { Stat::Damage,      [](const Weapon& w) { return static_cast<float>(w.damage); } ,false},
         { Stat::Concealment, [](const Weapon& w) { return static_cast<float>(w.concealment); },false },
         { Stat::Accuracy,    [](const Weapon& w) { return static_cast<float>(w.accuracy); } ,false},
         { Stat::Stability,   [](const Weapon& w) { return static_cast<float>(w.stability); } ,false},
-        { Stat::AmmoTotal,   [](const Weapon& w) { return static_cast<float>(w.ammoTotal); },false },
-        { Stat::MagSize,     [](const Weapon& w) { return static_cast<float>(w.magSize); },false }
+        { Stat::AmmoMax,     [](const Weapon& w) { return static_cast<float>(w.ammoMax); },true },
+        { Stat::MagSize,     [](const Weapon& w) { return static_cast<float>(w.magSize); },false },
+        { Stat::AmmoHigh,    [](const Weapon& w) { return w.ammoHigh; } ,true},
+        { Stat::AmmoLow,     [](const Weapon& w) { return w.ammoLow; } ,true}
     } };
 
     // Fast map-based lookup (built at startup)

@@ -37,15 +37,16 @@ wb& WeaponBuilder::SetROF(float r) {
     return *this;
 }
 
+wb& WeaponBuilder::SetConcealment(int c) {
+    concealment = c;
+    return *this;
+}
+
 wb& WeaponBuilder::SetReloadSpeed(float r) {
     reloadSpeed = r;
     return *this;
 }
 
-wb& WeaponBuilder::SetConcealment(int c) {
-    concealment = c;
-    return *this;
-}
 
 //Set Handling stats
 wb& WeaponBuilder::SetAccuracy(int ac) {
@@ -59,6 +60,10 @@ wb& WeaponBuilder::SetStability(int sb) {
 }
 
 //Set Ammo stats
+wb& WeaponBuilder::SetMagSize(int mag) {
+    magSize = mag;
+    return *this;
+}
 wb& WeaponBuilder::SetAmmoLow(float al) {
     ammoLow = al;
     return *this;
@@ -67,12 +72,8 @@ wb& WeaponBuilder::SetAmmoHigh(float ah) {
     ammoHigh = ah;
     return *this;
 }
-wb& WeaponBuilder::SetMagSize(int mag) {
-    magSize = mag;
-    return *this;
-}
 wb& WeaponBuilder::SetAmmoTotal(int at) {
-    ammoTotal = at;
+    ammoMax = at;
     return *this;
 }
 
@@ -80,6 +81,6 @@ wb& WeaponBuilder::SetAmmoTotal(int at) {
 Weapon WeaponBuilder::Build() const{
     return Weapon(
         internalName, type, weaponClass, ingameName, damage, concealment,
-        rof, reloadSpeed, accuracy, stability, ammoLow, ammoHigh, magSize, ammoTotal
+        rof, reloadSpeed, accuracy, stability, ammoLow, ammoHigh, magSize, ammoMax
     );
 }
