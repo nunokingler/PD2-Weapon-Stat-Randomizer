@@ -76,17 +76,17 @@ def parse_stat_block(soup):
             try:
                 if label == "damage" and stats["damage"] == 0:
                     stats["damage"] = int(re.search(r'\d+', value).group())
-                elif label == "concealment":
+                elif label == "concealment" and stats["concealment"] == 0:
                     stats["concealment"] = int(re.search(r'\d+', value).group())
-                elif label == "rate of fire":
+                elif label == "rate of fire" and stats["rateOfFire"] == 0:
                     stats["rateOfFire"] = int(re.search(r'\d+', value).group())
-                elif label == "accuracy":
+                elif label == "accuracy" and stats["accuracy"] == 0:
                     stats["accuracy"] = int(re.search(r'\d+', value).group())
-                elif label == "stability":
+                elif label == "stability"and stats["stability"] == 0:
                     stats["stability"] = int(re.search(r'\d+', value).group())
-                elif label == "magazine":
+                elif label == "magazine"and stats["magSize"] == 0:
                     stats["magSize"] = int(re.search(r'\d+', value).group())
-                elif label == "total ammo":
+                elif label == "total ammo"and stats["ammoTotal"] == 0:
                     stats["ammoTotal"] = int(re.search(r'\d+', value).group())
             except:
                 continue
@@ -94,13 +94,13 @@ def parse_stat_block(soup):
         # Ammo pickup and reload speeds are in special nested stats tables
         table_text = table.get_text().lower()
 
-        if "base pickup" in table_text:
+        if "base pickup" in table_text and stats["ammoLow"]==0 and stats["ammoHigh"]==0:
             pickups = re.findall(r'base pickup\s*(\d+\.?\d*)\s*(\d+\.?\d*)', table_text)
             if pickups:
                 stats["ammoLow"] = float(pickups[0][0])
                 stats["ammoHigh"] = float(pickups[0][1])
 
-        if "base time" in table_text:
+        if "base time" in table_text and stats["reloadTactical"]==0:
             # Match the line that says 'Base time' and grab the next float value
             base_time_match = re.search(r'base time\s*(\d+\.?\d*)s', table_text)
             if base_time_match:
@@ -143,7 +143,6 @@ for heading, weapons in get_weapon_links():
             weapon_data = {
                 "internalName": internalName,
                 "type": wType,
-                "category": wClass,
                 "inGameName": inGameName,
                 "damage": stats.get("damage", 0),
                 "concealment": stats.get("concealment", 0),
