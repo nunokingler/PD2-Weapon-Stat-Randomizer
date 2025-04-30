@@ -33,18 +33,16 @@ int main()
 
     std::uniform_real_distribution<float> dist(1.0f, 10.0f);
 
+    std::vector<Weapon> balanced;
     for (auto& w : repo)
-        if(w.type==WeaponType::AssaultRifle)
-        std::cout << behaviour.balance(w) << '\n';
-
-
-    //WeaponImporter a;
-    //Balancer b;
-    //std::cout << "Hello World!\n";
-    //auto weapons = a.importFromCSV();
-    //for (auto weapon : weapons) {
-    //    auto a = StatInfo::statExtractorMap.find(Stat::ReloadSpeed)->second->extract(weapon);
-    //    //if(is_near_zero(weapon.getReloadspeed()))
-    //    std::cout << std::fixed << std::setprecision(2) << std::setw(8)  << b.CalculateDps(weapon) << weapon<<  std::endl;
-    //}
+    {
+        auto balancedWeapon = behaviour.balance(w);
+        balanced.push_back(balancedWeapon);
+        std::cout << balancedWeapon << '\n';
+    }
+    exporter.ExportToLua(balanced);
 }
+
+
+
+
